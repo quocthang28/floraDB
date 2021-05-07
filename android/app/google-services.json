@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "856158396147",
+    "project_id": "floradb-bdef1",
+    "storage_bucket": "floradb-bdef1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:856158396147:android:b38cca86ff7463b55de186",
+        "android_client_info": {
+          "package_name": "com.example.floradb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "856158396147-lj11j2j6p70bies9r6r8cmo9vs0b6q7v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDH0LfMRpjs4QSti0voPAQPV36ol5BKlu4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "856158396147-lj11j2j6p70bies9r6r8cmo9vs0b6q7v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
