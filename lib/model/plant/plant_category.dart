@@ -6,13 +6,13 @@ class PlantCategory {
       required this.vietnameseName,
       required this.scientificName,
       required this.shortDesc,
-      required this.imageURL});
+      required this.imageURLs});
 
   String id;
   String vietnameseName;
   String scientificName;
   String shortDesc;
-  String imageURL;
+  List<String> imageURLs;
 
   factory PlantCategory.fromSnapshot(DocumentSnapshot snapshot) {
     return PlantCategory(
@@ -20,7 +20,17 @@ class PlantCategory {
       vietnameseName: snapshot['vietnamesename'],
       scientificName: snapshot['scientificname'],
       shortDesc: snapshot['shortdesc'],
-      imageURL: snapshot['imageurl'],
+      imageURLs: List.from(snapshot['imageurls']),
+    );
+  }
+
+  factory PlantCategory.fromMap(Map data) {
+    return PlantCategory(
+      id: data['id'],
+      vietnameseName: data['vietnamesename'],
+      scientificName: data['scientificname'],
+      shortDesc: data['shortdesc'],
+      imageURLs: data['imageurls'],
     );
   }
 

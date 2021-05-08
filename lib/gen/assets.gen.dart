@@ -8,8 +8,12 @@ import 'package:flutter/widgets.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  AssetGenImage get avatarbackground =>
+      const AssetGenImage('assets/images/avatarbackground.jpg');
   AssetGenImage get background =>
       const AssetGenImage('assets/images/background.jpg');
+  AssetGenImage get defaultavatar =>
+      const AssetGenImage('assets/images/defaultavatar.png');
 }
 
 class Assets {

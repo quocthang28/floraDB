@@ -1,11 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:floradb/controller/auth_controller.dart';
-import 'package:floradb/controller/plant_controller.dart';
+import 'package:floradb/controller/plant_category_controller.dart';
 import 'package:floradb/controller/user_controller.dart';
 import 'package:floradb/service/database_service.dart';
 import 'package:floradb/site_navigation.dart';
 import 'package:floradb/ui/home.dart';
 import 'package:floradb/ui/login.dart';
+import 'package:floradb/ui/plant_category_detail.dart';
 import 'package:floradb/ui/sign_up.dart';
 import 'package:floradb/ui/splash.dart';
 import 'package:flutter/material.dart';
@@ -47,6 +48,9 @@ class MyApp extends StatelessWidget {
         GetPage(name: SiteNavigation.LOGIN, page: () => LoginScreen()),
         GetPage(name: SiteNavigation.SIGNUP, page: () => SignUpScreen()),
         GetPage(name: SiteNavigation.HOME, page: () => HomeScreen()),
+        GetPage(
+            name: SiteNavigation.PLANTCATEGORYDETAIL,
+            page: () => PlantCategoryDetail()),
       ],
     );
   }

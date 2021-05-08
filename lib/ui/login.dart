@@ -50,7 +50,7 @@ class LoginScreen extends StatelessWidget {
                   Align(
                     alignment: Alignment.center,
                     child: TextWithBorder(
-                        text: 'plants and flowers database',
+                        text: 'diễn đàn cung cấp dữ liệu cây cảnh',
                         size: 25.0,
                         strokeWidth: 1.5,
                         fillColor: Colors.lightGreen.shade100,
@@ -67,10 +67,10 @@ class LoginScreen extends StatelessWidget {
                   MyTextField(
                       inputType: TextInputType.emailAddress,
                       controller: _emailController,
-                      hintText: 'Email Address'),
+                      hintText: 'Địa chỉ email'),
                   Gaps.vGap10,
                   TextWithBorder(
-                          text: 'Password',
+                          text: 'Mật khẩu',
                           size: 25.0,
                           strokeWidth: 2,
                           borderColor: Colors.brown)
@@ -79,14 +79,16 @@ class LoginScreen extends StatelessWidget {
                   MyTextField(
                       inputType: TextInputType.visiblePassword,
                       controller: _pwController,
-                      hintText: 'Password',
+                      hintText: 'Mật khẩu',
                       isObscure: true),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       CustomElevatedButton(
-                          child:
-                              'Login'.text.color(Colors.brown.shade400).make(),
+                          child: 'Đăng nhập'
+                              .text
+                              .color(Colors.brown.shade400)
+                              .make(),
                           onPressed: () async {
                             await _authController.login(_emailController.text,
                                 _pwController.text, context);
@@ -98,26 +100,18 @@ class LoginScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       TextWithBorder(
-                        text: 'Don\'t have an account? ',
+                        text: 'Chưa có tài khoản? ',
                         size: 16.0,
                         borderColor: Colors.black,
                       ),
-                      // GestureDetector(
-                      //   onTap: () => Get.toNamed(SiteNavigation.SIGNUP),
-                      //   child: TextWithBorder(
-                      //       text: 'Sign Up',
-                      //       size: 18.0,
-                      //       fillColor: Colors.green,
-                      //       borderColor: Colors.transparent),
-                      // ),
                       CustomElevatedButton(
-                          child: 'Sign Up'
+                          child: 'Đăng kí'
                               .text
                               .color(Colors.brown.shade400)
                               .make(),
                           onPressed: () => Get.toNamed(SiteNavigation.SIGNUP)),
                       TextWithBorder(
-                        text: ' now.',
+                        text: ' ngay.',
                         size: 16.0,
                         borderColor: Colors.black,
                       ),

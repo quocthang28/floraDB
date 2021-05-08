@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:floradb/model/user.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class DatabaseService {
   DatabaseService();
 
-  FirebaseFirestore _instance = FirebaseFirestore.instance;
+  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
 
-  FirebaseFirestore get instance => _instance;
+  FirebaseFirestore get firestore => _firestore;
+  FirebaseStorage get storage => _firebaseStorage;
 
   // Future<List<UserModel>> getUserList() async {
   //   CollectionReference usersRef = _instance.collection('users');
