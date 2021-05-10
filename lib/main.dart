@@ -2,12 +2,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:floradb/controller/auth_controller.dart';
 import 'package:floradb/controller/plant_category_controller.dart';
 import 'package:floradb/controller/user_controller.dart';
+import 'package:floradb/res/app_color.dart';
 import 'package:floradb/service/database_service.dart';
 import 'package:floradb/site_navigation.dart';
-import 'package:floradb/ui/home.dart';
-import 'package:floradb/ui/login.dart';
-import 'package:floradb/ui/plant_category_detail.dart';
-import 'package:floradb/ui/sign_up.dart';
+import 'package:floradb/ui/plant_category/all_plant_categories.dart';
+import 'package:floradb/ui/home/home.dart';
+import 'package:floradb/ui/auth/login.dart';
+import 'package:floradb/ui/plant_category/plant_category_detail.dart';
+import 'package:floradb/ui/auth/sign_up.dart';
 import 'package:floradb/ui/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,14 +27,15 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'floraDB',
       theme: ThemeData(
-        primaryColor: Colors.lightGreen.shade100,
-        accentColor: Colors.lightGreen.shade100,
+        primaryColor: AppColor.green,
+        accentColor: AppColor.green,
+        scaffoldBackgroundColor: AppColor.scaffoldBackgroundColor,
         textSelectionTheme: TextSelectionThemeData(
-          cursorColor: Colors.green,
-          selectionColor: Colors.green[200],
-          selectionHandleColor: Colors.green,
+          cursorColor: Colors.lightGreen,
+          selectionColor: Colors.lightGreen,
+          selectionHandleColor: Colors.lightGreen,
         ),
-        fontFamily: GoogleFonts.sourceSansPro().fontFamily,
+        fontFamily: GoogleFonts.openSans().fontFamily,
       ),
       debugShowCheckedModeBanner: false,
       initialBinding: BindingsBuilder(() {
@@ -48,6 +51,8 @@ class MyApp extends StatelessWidget {
         GetPage(name: SiteNavigation.LOGIN, page: () => LoginScreen()),
         GetPage(name: SiteNavigation.SIGNUP, page: () => SignUpScreen()),
         GetPage(name: SiteNavigation.HOME, page: () => HomeScreen()),
+        GetPage(
+            name: SiteNavigation.ALLCATEGORIES, page: () => AllCategories()),
         GetPage(
             name: SiteNavigation.PLANTCATEGORYDETAIL,
             page: () => PlantCategoryDetail()),

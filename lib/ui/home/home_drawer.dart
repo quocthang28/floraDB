@@ -1,20 +1,23 @@
 import 'package:floradb/common_widget/user_avatar.dart';
 import 'package:floradb/common_widget/text_with_border.dart';
 import 'package:floradb/controller/auth_controller.dart';
+import 'package:floradb/controller/user_controller.dart';
 import 'package:floradb/gen/assets.gen.dart';
+import 'package:floradb/res/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class AppDrawer extends StatelessWidget {
   final AuthController _authController = Get.find();
+  final UserController _userController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     var user = _authController.firestoreUser.value!;
     String level = _authController.isAd.value ? 'Admin' : 'Thành viên';
     return SizedBox(
-      width: Get.width * 0.65, // 75%
+      width: Get.width * 0.65,
       child: Drawer(
         child: Column(
           children: <Widget>[
@@ -24,7 +27,7 @@ class AppDrawer extends StatelessWidget {
                 Positioned(
                     top: 70.0, child: UserAvatar(w: 100.0, h: 100.0, r: 30.0)),
                 Positioned(
-                    top: 80,
+                    top: 90,
                     left: 80,
                     child: TextWithBorder(
                       text: user.userName,
@@ -32,7 +35,7 @@ class AppDrawer extends StatelessWidget {
                       borderColor: Colors.black,
                     )),
                 Positioned(
-                    top: 110,
+                    top: 120,
                     left: 80,
                     child: TextWithBorder(
                       text: 'Cấp độ: $level',
@@ -41,6 +44,10 @@ class AppDrawer extends StatelessWidget {
                     )),
               ],
             ),
+            DrawerAction(
+                icon: Icons.account_circle_outlined,
+                title: 'Đổi ảnh đại diện',
+                onTap: () => _userController.changeAvatar()),
             DrawerAction(
                 icon: Icons.info_outline,
                 title: 'Thông tin ứng dụng',
@@ -67,10 +74,8 @@ class DrawerAction extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: onTap,
-      dense: true,
-      visualDensity: VisualDensity.compact,
-      leading: Icon(icon, color: Colors.green),
-      title: title.text.size(18.0).color(Colors.green).make(),
+      leading: Icon(icon, color: AppColor.brown),
+      title: title.text.size(18.0).color(AppColor.brown).make(),
     );
   }
 }

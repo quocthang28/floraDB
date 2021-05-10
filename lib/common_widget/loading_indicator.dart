@@ -1,3 +1,4 @@
+import 'package:floradb/res/app_color.dart';
 import 'package:flutter/material.dart';
 
 showLoadingIndicator(BuildContext context) {
@@ -10,7 +11,7 @@ showLoadingIndicator(BuildContext context) {
           width: 50.0,
           height: 50.0,
           child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.green.shade100)),
+              valueColor: AlwaysStoppedAnimation<Color>(AppColor.green)),
         ),
       );
     },

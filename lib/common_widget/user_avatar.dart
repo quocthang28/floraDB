@@ -18,34 +18,30 @@ class UserAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => GestureDetector(
-          onTap: () => _userController.changeAvatar(),
-          child: Container(
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.white, width: 2.5),
-                shape: BoxShape.circle),
-            child: CircleAvatar(
-              radius: r,
-              backgroundColor: Colors.white,
-              child: _authController.firestoreUser.value!.avatarURL!.isNotEmpty
-                  ? ClipOval(
-                      child: CachedNetworkImage(
-                        width: 70.0,
-                        height: 70.0,
-                        imageUrl:
-                            _authController.firestoreUser.value!.avatarURL!,
-                        placeholder: (context, url) => Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                            ),
-                            child: CircularProgressIndicator().centered()),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
-                        fit: BoxFit.cover,
-                      ),
-                    )
-                  : Assets.images.defaultavatar.image(width: w, height: h),
-            ),
-          ).p(8.0),
-        ));
+    return Obx(() => Container(
+          decoration: BoxDecoration(
+              border: Border.all(color: Colors.white, width: 2.5),
+              shape: BoxShape.circle),
+          child: CircleAvatar(
+            radius: r,
+            backgroundColor: Colors.white,
+            child: _authController.firestoreUser.value!.avatarURL!.isNotEmpty
+                ? ClipOval(
+                    child: CachedNetworkImage(
+                      width: 70.0,
+                      height: 70.0,
+                      imageUrl: _authController.firestoreUser.value!.avatarURL!,
+                      placeholder: (context, url) => Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                          ),
+                          child: CircularProgressIndicator().centered()),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                      fit: BoxFit.cover,
+                    ),
+                  )
+                : Assets.images.defaultavatar.image(width: w, height: h),
+          ),
+        ).p(8.0));
   }
 }

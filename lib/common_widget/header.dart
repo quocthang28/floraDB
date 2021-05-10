@@ -1,8 +1,9 @@
+import 'package:floradb/res/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class HomePageHeader extends StatelessWidget {
-  HomePageHeader(this.title, this.haveSeemore);
+class Header extends StatelessWidget {
+  Header(this.title, {required this.haveSeemore});
 
   final String title;
   final bool haveSeemore;
@@ -12,21 +13,20 @@ class HomePageHeader extends StatelessWidget {
     return haveSeemore
         ? Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
-              title.text.bold.size(22).color(Colors.green).make(),
+              title.text.semiBold.size(20).color(AppColor.green).make(),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  'Xem tất cả'.text.size(18.0).color(Colors.green).make(),
-                  Icon(Icons.chevron_right, color: Colors.green),
+                  'Xem tất cả'.text.size(15.0).color(AppColor.brown).make(),
+                  Icon(Icons.chevron_right, color: AppColor.brown),
                 ],
               ),
             ],
           ).p(4.0).pSymmetric(h: 4.0)
-        : title.text.bold
-            .size(22)
-            .color(Colors.green)
+        : title.text.semiBold
+            .size(20)
+            .color(AppColor.green)
             .make()
             .p(4.0)
             .pSymmetric(h: 4.0);

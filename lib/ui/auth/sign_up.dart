@@ -3,6 +3,7 @@ import 'package:floradb/common_widget/text_with_border.dart';
 import 'package:floradb/common_widget/textfield.dart';
 import 'package:floradb/controller/auth_controller.dart';
 import 'package:floradb/gen/assets.gen.dart';
+import 'package:floradb/res/app_color.dart';
 import 'package:floradb/res/gaps.dart';
 import 'package:floradb/site_navigation.dart';
 import 'package:flutter/material.dart';
@@ -43,27 +44,31 @@ class SignUpScreen extends StatelessWidget {
                         text: 'floraDB',
                         size: 90.0,
                         strokeWidth: 3,
-                        fillColor: Colors.lightGreen.shade100,
-                        borderColor: Colors.brown.shade400),
+                        fillColor: AppColor.authGreen,
+                        borderColor: AppColor.brown),
                   ).pOnly(top: 80.0),
                   Align(
                     alignment: Alignment.center,
                     child: TextWithBorder(
                         text: 'diễn đàn cung cấp dữ liệu cây cảnh',
-                        size: 25.0,
+                        size: 20.0,
                         strokeWidth: 1.5,
-                        fillColor: Colors.lightGreen.shade100,
-                        borderColor: Colors.brown.shade400),
+                        fillColor: AppColor.authGreen,
+                        borderColor: AppColor.brown),
                   ),
                   Gaps.vGap50,
                   TextWithBorder(
                           text: 'Email',
                           size: 25.0,
                           strokeWidth: 2,
-                          borderColor: Colors.brown)
+                          borderColor: AppColor.brown)
                       .pOnly(left: 4.0),
                   Gaps.vGap4,
                   MyTextField(
+                      prefixIcon: Icon(
+                        Icons.email_outlined,
+                        color: AppColor.brown,
+                      ),
                       inputType: TextInputType.emailAddress,
                       controller: _emailController,
                       hintText: 'Địa chỉ email'),
@@ -72,10 +77,14 @@ class SignUpScreen extends StatelessWidget {
                           text: 'Tên hiển thị',
                           size: 25.0,
                           strokeWidth: 2,
-                          borderColor: Colors.brown)
+                          borderColor: AppColor.brown)
                       .pOnly(left: 4.0),
                   Gaps.vGap4,
                   MyTextField(
+                      prefixIcon: Icon(
+                        Icons.account_circle_outlined,
+                        color: AppColor.brown,
+                      ),
                       inputType: TextInputType.name,
                       controller: _userNameController,
                       hintText: 'Tên hiển thị'),
@@ -84,10 +93,14 @@ class SignUpScreen extends StatelessWidget {
                           text: 'Mật khẩu',
                           size: 25.0,
                           strokeWidth: 2,
-                          borderColor: Colors.brown)
+                          borderColor: AppColor.brown)
                       .pOnly(left: 4.0),
                   Gaps.vGap4,
                   MyTextField(
+                      prefixIcon: Icon(
+                        Icons.vpn_key_outlined,
+                        color: AppColor.brown,
+                      ),
                       inputType: TextInputType.visiblePassword,
                       controller: _pwController,
                       hintText: 'Mật khẩu',
@@ -96,8 +109,7 @@ class SignUpScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       CustomElevatedButton(
-                        child:
-                            'Đăng kí'.text.color(Colors.brown.shade400).make(),
+                        child: 'Đăng kí'.text.color(AppColor.brown).make(),
                         onPressed: () async {
                           if (_userNameController.text.isEmpty) {
                             Get.snackbar('Lỗi đăng kí tài khoản',
@@ -130,10 +142,7 @@ class SignUpScreen extends StatelessWidget {
                         borderColor: Colors.black,
                       ),
                       CustomElevatedButton(
-                          child: 'Đăng nhập'
-                              .text
-                              .color(Colors.brown.shade400)
-                              .make(),
+                          child: 'Đăng nhập'.text.color(AppColor.brown).make(),
                           onPressed: () =>
                               Get.offAllNamed(SiteNavigation.LOGIN)),
                       TextWithBorder(

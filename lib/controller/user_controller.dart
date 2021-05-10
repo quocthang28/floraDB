@@ -58,6 +58,7 @@ class UserController extends GetxController {
               .collection('users')
               .doc(_authController.firestoreUser.value!.uid)
               .set({'avatarurl': avatarUrl}, SetOptions(merge: true));
+          Get.snackbar('Đổi ảnh đại diện thành công', '');
         });
       }
     } else {

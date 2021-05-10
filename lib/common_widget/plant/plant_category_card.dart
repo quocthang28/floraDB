@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:floradb/common_widget/text_with_border.dart';
 import 'package:floradb/model/plant/plant_category.dart';
+import 'package:floradb/res/app_color.dart';
 import 'package:floradb/site_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -20,7 +21,7 @@ class PlantCategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Get.toNamed(SiteNavigation.PLANTCATEGORYDETAIL,
-          arguments: plantCategory),
+          arguments: plantCategory.id),
       child: Card(
         color: Colors.transparent,
         elevation: 6.0,
@@ -43,24 +44,14 @@ class PlantCategoryCard extends StatelessWidget {
               ),
             ),
             //Image(image: CachedNetworkImageProvider(plantCategory.imageURL)),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                TextWithBorder(
+            TextWithBorder(
                     text: plantCategory.vietnameseName,
                     size: 20.0,
                     strokeWidth: 1.2,
                     fontWeight: FontWeight.w700,
-                    borderColor: Colors.black),
-                TextWithBorder(
-                    text: plantCategory.scientificName,
-                    size: 16.0,
-                    strokeWidth: 1.2,
-                    fontWeight: FontWeight.w500,
-                    borderColor: Colors.black),
-              ],
-            ).p(4.0),
+                    fillColor: AppColor.scaffoldBackgroundColor,
+                    borderColor: Colors.black)
+                .p(4.0),
           ],
         ),
       ).pOnly(top: 4.0),

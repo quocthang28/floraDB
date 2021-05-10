@@ -6,14 +6,15 @@ import 'package:get/get.dart';
 class PlantCategoryController extends GetxController {
   DatabaseService _databaseService = Get.find();
   final plantCategoriesLD = <PlantCategory>[].obs;
+  var plantCategoryLD = Rxn<PlantCategory>();
 
   @override
   void onInit() {
-    plantCategoriesLD.bindStream(streamPlantCategory());
+    plantCategoriesLD.bindStream(streamPlantCategories());
     super.onInit();
   }
 
-  Stream<List<PlantCategory>> streamPlantCategory() {
+  Stream<List<PlantCategory>> streamPlantCategories() {
     return _databaseService.firestore
         .collection('plant_category')
         .snapshots()

@@ -65,7 +65,9 @@ class AuthController extends GetxController {
     if (_firebaseUser == null) {
       Get.offAllNamed(SiteNavigation.LOGIN);
     } else {
-      Get.offAllNamed(SiteNavigation.HOME);
+      Future.delayed(const Duration(seconds: 1),
+          () => Get.offAllNamed(SiteNavigation.HOME));
+      //Get.offAllNamed(SiteNavigation.HOME);
     }
   }
 

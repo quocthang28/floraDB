@@ -4,13 +4,11 @@ class PlantCategory {
   PlantCategory(
       {required this.id,
       required this.vietnameseName,
-      required this.scientificName,
       required this.shortDesc,
       required this.imageURLs});
 
   String id;
   String vietnameseName;
-  String scientificName;
   String shortDesc;
   List<String> imageURLs;
 
@@ -18,7 +16,6 @@ class PlantCategory {
     return PlantCategory(
       id: snapshot['id'],
       vietnameseName: snapshot['vietnamesename'],
-      scientificName: snapshot['scientificname'],
       shortDesc: snapshot['shortdesc'],
       imageURLs: List.from(snapshot['imageurls']),
     );
@@ -28,16 +25,11 @@ class PlantCategory {
     return PlantCategory(
       id: data['id'],
       vietnameseName: data['vietnamesename'],
-      scientificName: data['scientificname'],
       shortDesc: data['shortdesc'],
       imageURLs: data['imageurls'],
     );
   }
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "vietnamesename": vietnameseName,
-        scientificName: "scientificname",
-        shortDesc: "shortdesc"
-      };
+  Map<String, dynamic> toJson() =>
+      {"id": id, "vietnamesename": vietnameseName, shortDesc: "shortdesc"};
 }

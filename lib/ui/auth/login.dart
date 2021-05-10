@@ -1,4 +1,5 @@
 import 'package:floradb/common_widget/button.dart';
+import 'package:floradb/res/app_color.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:floradb/common_widget/text_with_border.dart';
 import 'package:floradb/common_widget/textfield.dart';
@@ -44,27 +45,31 @@ class LoginScreen extends StatelessWidget {
                         text: 'floraDB',
                         size: 90.0,
                         strokeWidth: 3,
-                        fillColor: Colors.lightGreen.shade100,
-                        borderColor: Colors.brown.shade400),
+                        fillColor: AppColor.authGreen,
+                        borderColor: AppColor.brown),
                   ).pOnly(top: 130.0),
                   Align(
                     alignment: Alignment.center,
                     child: TextWithBorder(
                         text: 'diễn đàn cung cấp dữ liệu cây cảnh',
-                        size: 25.0,
+                        size: 20.0,
                         strokeWidth: 1.5,
-                        fillColor: Colors.lightGreen.shade100,
-                        borderColor: Colors.brown.shade400),
+                        fillColor: AppColor.authGreen,
+                        borderColor: AppColor.brown),
                   ),
                   Gaps.vGap50,
                   TextWithBorder(
                           text: 'Email',
                           size: 25.0,
                           strokeWidth: 2,
-                          borderColor: Colors.brown)
+                          borderColor: AppColor.brown)
                       .pOnly(left: 4.0),
                   Gaps.vGap4,
                   MyTextField(
+                      prefixIcon: Icon(
+                        Icons.email_outlined,
+                        color: AppColor.brown,
+                      ),
                       inputType: TextInputType.emailAddress,
                       controller: _emailController,
                       hintText: 'Địa chỉ email'),
@@ -73,10 +78,14 @@ class LoginScreen extends StatelessWidget {
                           text: 'Mật khẩu',
                           size: 25.0,
                           strokeWidth: 2,
-                          borderColor: Colors.brown)
+                          borderColor: AppColor.brown)
                       .pOnly(left: 4.0),
                   Gaps.vGap4,
                   MyTextField(
+                      prefixIcon: Icon(
+                        Icons.vpn_key_outlined,
+                        color: AppColor.brown,
+                      ),
                       inputType: TextInputType.visiblePassword,
                       controller: _pwController,
                       hintText: 'Mật khẩu',
@@ -85,10 +94,7 @@ class LoginScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       CustomElevatedButton(
-                          child: 'Đăng nhập'
-                              .text
-                              .color(Colors.brown.shade400)
-                              .make(),
+                          child: 'Đăng nhập'.text.color(AppColor.brown).make(),
                           onPressed: () async {
                             await _authController.login(_emailController.text,
                                 _pwController.text, context);
@@ -105,10 +111,7 @@ class LoginScreen extends StatelessWidget {
                         borderColor: Colors.black,
                       ),
                       CustomElevatedButton(
-                          child: 'Đăng kí'
-                              .text
-                              .color(Colors.brown.shade400)
-                              .make(),
+                          child: 'Đăng kí'.text.color(AppColor.brown).make(),
                           onPressed: () => Get.toNamed(SiteNavigation.SIGNUP)),
                       TextWithBorder(
                         text: ' ngay.',
