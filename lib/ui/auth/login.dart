@@ -108,6 +108,7 @@ class LoginScreen extends StatelessWidget {
                       TextWithBorder(
                         text: 'Chưa có tài khoản? ',
                         size: 16.0,
+                        strokeWidth: 1.5,
                         borderColor: Colors.black,
                       ),
                       CustomElevatedButton(
@@ -115,6 +116,7 @@ class LoginScreen extends StatelessWidget {
                           onPressed: () => Get.toNamed(SiteNavigation.SIGNUP)),
                       TextWithBorder(
                         text: ' ngay.',
+                        strokeWidth: 1.5,
                         size: 16.0,
                         borderColor: Colors.black,
                       ),

@@ -17,7 +17,7 @@ class UserModel {
       uid: data['uid'],
       email: data['email'],
       userName: data['username'],
-      avatarURL: data['avatarurl'] ?? '',
+      avatarURL: data['avatarurl'],
     );
   }
 

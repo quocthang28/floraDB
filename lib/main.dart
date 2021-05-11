@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:floradb/controller/auth_controller.dart';
 import 'package:floradb/controller/plant_category_controller.dart';
+import 'package:floradb/controller/plant_controller.dart';
 import 'package:floradb/controller/user_controller.dart';
 import 'package:floradb/res/app_color.dart';
 import 'package:floradb/service/database_service.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
         Get.lazyPut<UserController>(() => UserController(), fenix: true);
         Get.lazyPut<PlantCategoryController>(() => PlantCategoryController(),
             fenix: true);
+        Get.lazyPut<PlantController>(() => PlantController(), fenix: true);
       }),
       initialRoute: SiteNavigation.SPLASH,
       getPages: [

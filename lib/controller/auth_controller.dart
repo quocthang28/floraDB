@@ -33,10 +33,18 @@ class AuthController extends GetxController {
     super.onInit();
   }
 
+  // bool checkIfUserExists(){
+  //   var collectionRef = Firestore.instance.collection('/users/${_firebaseUser.value!.uid}');
+  //
+  //   var doc = await collectionRef.document(docId).get();
+  //   return doc.exists;
+  // }
+
   Stream<UserModel> streamFirestoreUser() {
     // return user data from firestore
     return _db
-        .doc('/users/${_firebaseUser.value!.uid}')
+        .collection('users')
+        .doc('${_firebaseUser.value!.uid}')
         .snapshots()
         .map((snapshot) => UserModel.fromMap(snapshot.data()!));
   }
@@ -65,8 +73,7 @@ class AuthController extends GetxController {
     if (_firebaseUser == null) {
       Get.offAllNamed(SiteNavigation.LOGIN);
     } else {
-      Future.delayed(const Duration(seconds: 1),
-          () => Get.offAllNamed(SiteNavigation.HOME));
+      Get.offAllNamed(SiteNavigation.HOME);
       //Get.offAllNamed(SiteNavigation.HOME);
     }
   }

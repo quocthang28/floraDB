@@ -5,12 +5,14 @@ class PlantCategory {
       {required this.id,
       required this.vietnameseName,
       required this.shortDesc,
-      required this.imageURLs});
+      required this.imageURLs,
+      required this.plantCount});
 
   String id;
   String vietnameseName;
   String shortDesc;
   List<String> imageURLs;
+  int plantCount;
 
   factory PlantCategory.fromSnapshot(DocumentSnapshot snapshot) {
     return PlantCategory(
@@ -18,6 +20,7 @@ class PlantCategory {
       vietnameseName: snapshot['vietnamesename'],
       shortDesc: snapshot['shortdesc'],
       imageURLs: List.from(snapshot['imageurls']),
+      plantCount: snapshot['plantcount'],
     );
   }
 
@@ -27,6 +30,7 @@ class PlantCategory {
       vietnameseName: data['vietnamesename'],
       shortDesc: data['shortdesc'],
       imageURLs: data['imageurls'],
+      plantCount: data['plantcount'],
     );
   }
 

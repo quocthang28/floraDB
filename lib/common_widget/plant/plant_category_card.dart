@@ -46,8 +46,8 @@ class PlantCategoryCard extends StatelessWidget {
             //Image(image: CachedNetworkImageProvider(plantCategory.imageURL)),
             TextWithBorder(
                     text: plantCategory.vietnameseName,
-                    size: 20.0,
-                    strokeWidth: 1.2,
+                    size: 18.0,
+                    strokeWidth: 2,
                     fontWeight: FontWeight.w700,
                     fillColor: AppColor.scaffoldBackgroundColor,
                     borderColor: Colors.black)

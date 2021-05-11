@@ -139,6 +139,7 @@ class SignUpScreen extends StatelessWidget {
                       TextWithBorder(
                         text: 'Đã có tài khoản? ',
                         size: 16.0,
+                        strokeWidth: 1.5,
                         borderColor: Colors.black,
                       ),
                       CustomElevatedButton(
@@ -148,6 +149,7 @@ class SignUpScreen extends StatelessWidget {
                       TextWithBorder(
                         text: ' ngay.',
                         size: 16.0,
+                        strokeWidth: 1.5,
                         borderColor: Colors.black,
                       ),
                     ],

@@ -23,6 +23,7 @@ class HomeScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
+            Gaps.vGap8,
             Align(
               alignment: Alignment.centerLeft,
               child: Header('Danh mục cây cảnh', haveSeemore: false),

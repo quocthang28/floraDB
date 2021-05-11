@@ -13,13 +13,15 @@ class Header extends StatelessWidget {
     return haveSeemore
         ? Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               title.text.semiBold.size(20).color(AppColor.green).make(),
               Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   'Xem tất cả'.text.size(15.0).color(AppColor.brown).make(),
-                  Icon(Icons.chevron_right, color: AppColor.brown),
+                  Icon(Icons.chevron_right, color: AppColor.brown)
                 ],
               ),
             ],
