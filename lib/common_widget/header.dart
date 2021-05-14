@@ -8,6 +8,7 @@ class Header extends StatelessWidget {
   final String title;
   final bool haveSeemore;
 
+  //todo: sticky header
   @override
   Widget build(BuildContext context) {
     return haveSeemore

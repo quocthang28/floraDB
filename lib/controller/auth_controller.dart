@@ -94,7 +94,9 @@ class AuthController extends GetxController {
           UserModel _newUser = UserModel(
               uid: result.user!.uid,
               email: result.user!.email!,
-              userName: name);
+              userName: name,
+              avatarURL:
+                  "https://firebasestorage.googleapis.com/v0/b/floradb-bdef1.appspot.com/o/user_avatar%2Fdefaultavatar.png?alt=media&token=3f537dc5-2ecc-4225-8993-318e13c7eab7");
           _createUserFirestore(_newUser, result.user!);
         } else {
           Get.snackbar('Lôi đăng kí tài khoản', 'Thiếu username!');

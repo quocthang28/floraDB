@@ -6,6 +6,7 @@ import 'package:floradb/controller/user_controller.dart';
 import 'package:floradb/res/app_color.dart';
 import 'package:floradb/service/database_service.dart';
 import 'package:floradb/site_navigation.dart';
+import 'package:floradb/ui/plant/plant_detail.dart';
 import 'package:floradb/ui/plant_category/all_plant_categories.dart';
 import 'package:floradb/ui/home/home.dart';
 import 'package:floradb/ui/auth/login.dart';
@@ -58,6 +59,7 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: SiteNavigation.PLANTCATEGORYDETAIL,
             page: () => PlantCategoryDetail()),
+        GetPage(name: SiteNavigation.PLANTDETAIL, page: () => PlantDetail()),
       ],
     );
   }

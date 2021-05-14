@@ -13,6 +13,7 @@ class PlantController extends GetxController {
   }
 
   Stream<List<Plant>> streamPlants() {
+    //todo: sort by created date (newest on top)
     return _databaseService.firestore
         .collection('plant')
         .snapshots()

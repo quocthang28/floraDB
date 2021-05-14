@@ -17,7 +17,7 @@ class AppDrawer extends StatelessWidget {
     var user = _authController.firestoreUser.value!;
     String level = _authController.isAd.value ? 'Admin' : 'Thành viên';
     return SizedBox(
-      width: Get.width * 0.65,
+      width: Get.width * 0.70,
       child: Drawer(
         child: Column(
           children: <Widget>[
@@ -73,6 +73,7 @@ class DrawerAction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      visualDensity: VisualDensity.compact,
       onTap: onTap,
       leading: Icon(icon, color: AppColor.brown),
       title: title.text.size(18.0).color(AppColor.brown).make(),

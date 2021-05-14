@@ -25,22 +25,20 @@ class UserAvatar extends StatelessWidget {
           child: CircleAvatar(
             radius: r,
             backgroundColor: Colors.white,
-            child: _authController.firestoreUser.value!.avatarURL!.isNotEmpty
-                ? ClipOval(
-                    child: CachedNetworkImage(
-                      width: 70.0,
-                      height: 70.0,
-                      imageUrl: _authController.firestoreUser.value!.avatarURL!,
-                      placeholder: (context, url) => Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                          ),
-                          child: CircularProgressIndicator().centered()),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
-                      fit: BoxFit.cover,
+            child: ClipOval(
+              child: CachedNetworkImage(
+                width: 70.0,
+                height: 70.0,
+                imageUrl: _authController.firestoreUser.value!.avatarURL!,
+                placeholder: (context, url) => Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
                     ),
-                  )
-                : Assets.images.defaultavatar.image(width: w, height: h),
+                    child: CircularProgressIndicator().centered()),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
         ).p(8.0));
   }

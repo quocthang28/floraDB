@@ -5,4 +5,5 @@ class SiteNavigation {
   static const SIGNUP = '/signup';
   static const ALLCATEGORIES = '/allcategories';
   static const PLANTCATEGORYDETAIL = '/plantcategorydetail';
+  static const PLANTDETAIL = '/plantdetail';
 }

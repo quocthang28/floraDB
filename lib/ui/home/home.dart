@@ -32,7 +32,7 @@ class HomeScreen extends StatelessWidget {
             Gaps.vGap8,
             Align(
               alignment: Alignment.centerLeft,
-              child: Header('Chủ đề thảo luận', haveSeemore: true),
+              child: Header('Chủ đề thảo luận mới', haveSeemore: true),
             ),
             Align(
               alignment: Alignment.centerLeft,

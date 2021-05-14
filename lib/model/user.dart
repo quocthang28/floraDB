@@ -26,10 +26,14 @@ class UserModel {
       uid: snapshot['uid'],
       email: snapshot['email'],
       userName: snapshot['username'],
-      avatarURL: snapshot['avatarurl'] ?? '',
+      avatarURL: snapshot['avatarurl'],
     );
   }
 
-  Map<String, dynamic> toJson() =>
-      {"uid": uid, "email": email, "username": userName};
+  Map<String, dynamic> toJson() => {
+        "uid": uid,
+        "email": email,
+        "username": userName,
+        "avatarurl": avatarURL
+      };
 }
