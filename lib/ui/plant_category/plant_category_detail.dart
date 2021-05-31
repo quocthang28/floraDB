@@ -3,10 +3,13 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:floradb/common_widget/appbar_back_button.dart';
 import 'package:floradb/common_widget/brown_button.dart';
 import 'package:floradb/common_widget/header.dart';
+import 'package:floradb/common_widget/plant/plant_listview.dart';
 import 'package:floradb/controller/plant_category_controller.dart';
 import 'package:floradb/controller/plant_controller.dart';
+import 'package:floradb/model/plant/plant.dart';
 import 'package:floradb/res/app_color.dart';
 import 'package:floradb/site_navigation.dart';
+import 'package:floradb/ui/plant/all_plant.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -18,27 +21,7 @@ class PlantCategoryDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget _buildPlants() {
-      List<Widget> plantList = [];
-      _plantController.plantsLD
-          .where((plant) => plant.categoryID == _categoryID)
-          .forEach((plant) {
-        plantList.add(ListTile(
-          onTap: () =>
-              Get.toNamed(SiteNavigation.PLANTDETAIL, arguments: plant.id),
-          visualDensity: VisualDensity.compact,
-          title: plant.name.text.make(),
-          subtitle: plant.scientificName.text.make(),
-          trailing: Icon(Icons.chevron_right),
-        ));
-      });
-      return ListView(
-        shrinkWrap: true,
-        padding: EdgeInsets.all(0.0),
-        physics: NeverScrollableScrollPhysics(),
-        children: plantList,
-      );
-    }
+    _plantController.getPlantsByCategory(_categoryID);
 
     Widget _buildCategoryInfo() {
       return Column(
@@ -97,12 +80,11 @@ class PlantCategoryDetail extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Header('Chủ đề thảo luận', haveSeemore: true),
           BrownButton(
             label: 'Thêm chủ đề thảo luận',
             icon: Icons.add,
             onPress: () {},
-          ),
+          ).pSymmetric(h: 8.0),
         ],
       ).pOnly(top: 8.0).pSymmetric(h: 8.0);
     }
@@ -123,18 +105,29 @@ class PlantCategoryDetail extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               _buildCategoryInfo(),
-              Header('Thuộc danh mục này', haveSeemore: true),
-              _plantController.plantsLD
-                      .where((plant) => plant.categoryID == _categoryID)
-                      .isEmpty
+              Header(
+                'Cây thuộc danh mục',
+                count: _plantController.plantsByCategoryLD.length,
+                haveSeemore: true,
+                onTap: () => Get.to(() => AllPlant(
+                      categoryID: _categoryID,
+                      categoryName: _plantCategoryController.plantCategoriesLD
+                          .firstWhere((element) => element.id == _categoryID)
+                          .vietnameseName,
+                    )),
+              ),
+              _plantController.plantsByCategoryLD.isEmpty
                   ? Center(
-                      child: 'Danh mục này chưa có cây cảnh.'.text.make())
-                  : _buildPlants(),
+                          child:
+                              'Danh mục này chưa có cây cảnh.'.text.make())
+                      .p(6.0)
+                  : PlantListView(categoryID: _categoryID),
               BrownButton(
                 label: 'Thêm cây vào danh mục',
                 icon: Icons.add,
                 onPress: () {},
-              ).pSymmetric(h: 8.0),
+              ).pSymmetric(h: 16.0),
+              Header('Chủ đề thảo luận', haveSeemore: true),
               _buildDiscussionThreads()
             ],
           ),

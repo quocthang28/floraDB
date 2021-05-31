@@ -1,11 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:floradb/controller/app_controller.dart';
 import 'package:floradb/controller/auth_controller.dart';
+import 'package:floradb/controller/forum_controller.dart';
 import 'package:floradb/controller/plant_category_controller.dart';
 import 'package:floradb/controller/plant_controller.dart';
 import 'package:floradb/controller/user_controller.dart';
 import 'package:floradb/res/app_color.dart';
 import 'package:floradb/service/database_service.dart';
 import 'package:floradb/site_navigation.dart';
+import 'package:floradb/ui/main_screen.dart';
+import 'package:floradb/ui/plant/all_plant.dart';
 import 'package:floradb/ui/plant/plant_detail.dart';
 import 'package:floradb/ui/plant_category/all_plant_categories.dart';
 import 'package:floradb/ui/home/home.dart';
@@ -41,16 +45,19 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       initialBinding: BindingsBuilder(() {
-        Get.put<AuthController>(AuthController());
+        Get.put<AuthController>(AuthController(), permanent: true);
+        Get.put<AppController>(AppController(), permanent: true);
         Get.lazyPut<DatabaseService>(() => DatabaseService(), fenix: true);
         Get.lazyPut<UserController>(() => UserController(), fenix: true);
         Get.lazyPut<PlantCategoryController>(() => PlantCategoryController(),
             fenix: true);
         Get.lazyPut<PlantController>(() => PlantController(), fenix: true);
+        Get.lazyPut<ForumController>(() => ForumController(), fenix: true);
       }),
       initialRoute: SiteNavigation.SPLASH,
       getPages: [
         GetPage(name: SiteNavigation.SPLASH, page: () => SplashScreen()),
+        GetPage(name: SiteNavigation.MAIN, page: () => MainScreen()),
         GetPage(name: SiteNavigation.LOGIN, page: () => LoginScreen()),
         GetPage(name: SiteNavigation.SIGNUP, page: () => SignUpScreen()),
         GetPage(name: SiteNavigation.HOME, page: () => HomeScreen()),

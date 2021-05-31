@@ -73,7 +73,7 @@ class AuthController extends GetxController {
     if (_firebaseUser == null) {
       Get.offAllNamed(SiteNavigation.LOGIN);
     } else {
-      Get.offAllNamed(SiteNavigation.HOME);
+      Get.offAllNamed(SiteNavigation.MAIN);
       //Get.offAllNamed(SiteNavigation.HOME);
     }
   }

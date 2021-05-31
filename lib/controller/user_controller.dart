@@ -18,7 +18,6 @@ class UserController extends GetxController {
         _databaseService.firestore.collection('users');
     QuerySnapshot querySnapshot = await usersRef.get();
     return querySnapshot.docs
-        //.where((element) => element['username'] == 'hihi')
         .map((doc) => UserModel.fromSnapshot(doc))
         .toList();
   }

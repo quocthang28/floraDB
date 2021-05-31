@@ -12,14 +12,29 @@ class PlantDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 8.0,
+        elevation: 4.0,
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: AppColor.green),
         title:
-            '${_plantController.plantsLD.firstWhere((element) => element.id == plantID).name}'
+            '${_plantController.plantsByCategoryLD.firstWhere((element) => element.id == plantID).name}'
                 .text
                 .color(AppColor.green)
                 .make(),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            _plantController.plantsByCategoryLD
+                .firstWhere((element) => element.id == plantID)
+                .desc
+                .text
+                .size(16.0)
+                .color(AppColor.textColor)
+                .align(TextAlign.justify)
+                .make()
+                .p(8.0),
+          ],
+        ),
       ),
     );
   }

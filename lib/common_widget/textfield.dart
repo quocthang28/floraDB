@@ -30,15 +30,15 @@ class MyTextField extends StatelessWidget {
             fontSize: 15.0,
           ),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
+            borderRadius: BorderRadius.circular(5.0),
             borderSide: BorderSide(color: AppColor.brown, width: 2.0),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
+            borderRadius: BorderRadius.circular(5.0),
             borderSide: BorderSide(color: AppColor.brown, width: 2.0),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(5.0),
             borderSide: BorderSide(color: AppColor.brown, width: 2.0),
           ),
           contentPadding: EdgeInsets.all(10.0),

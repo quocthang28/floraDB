@@ -8,7 +8,6 @@ import 'package:velocity_x/velocity_x.dart';
 
 class UserAvatar extends StatelessWidget {
   final AuthController _authController = Get.find();
-  final UserController _userController = Get.find();
 
   UserAvatar({this.w, this.h, this.r});
 

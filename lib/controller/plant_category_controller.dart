@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:floradb/model/plant/plant_category.dart';
 import 'package:floradb/service/database_service.dart';
 import 'package:get/get.dart';

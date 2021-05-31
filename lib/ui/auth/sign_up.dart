@@ -122,13 +122,6 @@ class SignUpScreen extends StatelessWidget {
                                 context);
                           }
                         },
-                        // onPressed: () {
-                        //   if (_userNameController.text.isEmpty) {
-                        //     print('cc');
-                        //   }
-                        //   print(_emailController.text);
-                        //   print(_userNameController.text);
-                        // },
                       )
                     ],
                   ).p(4.0),

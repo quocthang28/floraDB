@@ -9,7 +9,7 @@ class AllCategories extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 8.0,
+        elevation: 4.0,
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: AppColor.green),
         title: 'Danh mục cây cảnh'.text.color(AppColor.green).make(),

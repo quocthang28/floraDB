@@ -1,9 +1,7 @@
-import 'dart:convert';
-
 import 'package:floradb/common_widget/plant/plant_category_card.dart';
 import 'package:floradb/controller/plant_category_controller.dart';
 import 'package:floradb/res/app_color.dart';
-import 'package:floradb/res/gaps.dart';
+import 'package:floradb/site_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -24,7 +22,7 @@ class CategorySearch extends SearchDelegate<PlantCategoryCard> {
       IconButton(
         icon: Icon(Icons.close),
         color: AppColor.green,
-        onPressed: () => query = '',
+        onPressed: () => Navigator.pop(context),
       )
     ];
   }
@@ -34,9 +32,7 @@ class CategorySearch extends SearchDelegate<PlantCategoryCard> {
     return IconButton(
       icon: Icon(Icons.arrow_back),
       color: AppColor.green,
-      onPressed: () {
-        Navigator.pop(context);
-      },
+      onPressed: () => Get.offAllNamed(SiteNavigation.HOME),
     );
   }
 

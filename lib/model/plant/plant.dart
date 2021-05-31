@@ -30,6 +30,7 @@ class Plant {
 
   Map<String, dynamic> toJson() => {
         "category_id": categoryID,
+        "id": id,
         "name": name,
         "scientificname": scientificName,
         "desc": desc,
