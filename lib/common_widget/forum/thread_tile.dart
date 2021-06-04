@@ -1,9 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:floradb/model/forum/thread.dart';
 import 'package:floradb/res/app_color.dart';
-import 'package:floradb/utils/TimeFormat.dart';
+import 'package:floradb/site_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:get/get.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class ThreadTile extends StatelessWidget {
   ThreadTile({required this.thread});
@@ -17,6 +18,8 @@ class ThreadTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: () =>
+          Get.toNamed(SiteNavigation.THREADDETAIL, arguments: [thread]),
       leading: Image.network(
         thread.posterAvatar,
         height: 50,
@@ -41,11 +44,12 @@ class ThreadTile extends StatelessWidget {
           Row(
             children: [
               '${thread.replies} trả lời • '.text.size(14).make(),
-              getTimeAgo(thread.createdOn.toString())!.text.size(14).make(),
+              timeago.format(thread.createdOn, locale: 'vi').text.make(),
+              //getTimeAgo(thread.createdOn.toString())!.text.size(14).make(),
             ],
           ).pOnly(top: 2),
         ],
       ),
-    ).pSymmetric(h: 16, v: 4);
+    );
   }
 }

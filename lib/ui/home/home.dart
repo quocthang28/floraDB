@@ -1,9 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:floradb/common_widget/forum/thread_tile.dart';
+import 'package:floradb/controller/forum_controller.dart';
+import 'package:floradb/model/forum/thread.dart';
 import 'package:floradb/res/app_color.dart';
 import 'package:floradb/ui/home/home_drawer.dart';
 import 'package:floradb/common_widget/header.dart';
 import 'package:floradb/res/gaps.dart';
 import 'package:floradb/common_widget/plant/plant_categories_grid.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,6 +18,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with AutomaticKeepAliveClientMixin<HomeScreen> {
+  ForumController _forumController = Get.find();
+
   @override
   bool get wantKeepAlive => true;
 
@@ -41,6 +48,25 @@ class _HomeScreenState extends State<HomeScreen>
               alignment: Alignment.centerLeft,
               child: Header('Chủ đề thảo luận mới', haveSeemore: false),
             ),
+            StreamBuilder(
+                stream: _forumController.streamNewestThreads(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return Gaps.empty;
+                  } else {
+                    List<ForumThread> threads = snapshot.data!.docs
+                        .map((thread) => ForumThread.fromQuerySnapshot(thread))
+                        .toList();
+                    return ListView(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      children: threads
+                          .map((ForumThread e) => ThreadTile.buildInstance(e))
+                          .toList(),
+                    );
+                  }
+                }),
           ],
         ),
       ),

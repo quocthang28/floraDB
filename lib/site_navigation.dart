@@ -8,4 +8,9 @@ class SiteNavigation {
   static const PLANTCATEGORYDETAIL = '/plantcategorydetail';
   static const ALLPLANT = '/ALLPLANT';
   static const PLANTDETAIL = '/plantdetail';
+  //forum
+  static const ALLTHREADS = '/allthreads';
+  static const THREADDETAIL = '/threaddetail';
+  static const ADDREPLY = '/addreply';
+  static const ADDTHREAD = '/addthread';
 }

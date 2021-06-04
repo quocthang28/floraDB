@@ -75,20 +75,6 @@ class PlantCategoryDetail extends StatelessWidget {
       );
     }
 
-    Widget _buildDiscussionThreads() {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          BrownButton(
-            label: 'Thêm chủ đề thảo luận',
-            icon: Icons.add,
-            onPress: () {},
-          ).pSymmetric(h: 8.0),
-        ],
-      ).pOnly(top: 8.0).pSymmetric(h: 8.0);
-    }
-
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -127,8 +113,6 @@ class PlantCategoryDetail extends StatelessWidget {
                 icon: Icons.add,
                 onPress: () {},
               ).pSymmetric(h: 16.0),
-              Header('Chủ đề thảo luận', haveSeemore: true),
-              _buildDiscussionThreads()
             ],
           ),
         ),

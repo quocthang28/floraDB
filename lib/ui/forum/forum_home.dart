@@ -1,14 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:floradb/common_widget/brown_button.dart';
-import 'package:floradb/common_widget/forum/threadtile.dart';
+import 'package:floradb/common_widget/forum/thread_tile.dart';
 import 'package:floradb/controller/forum_controller.dart';
-import 'package:floradb/controller/user_controller.dart';
 import 'package:floradb/model/forum/thread.dart';
-import 'package:floradb/model/user.dart';
 import 'package:floradb/res/app_color.dart';
 import 'package:floradb/res/gaps.dart';
-import 'package:floradb/utils/TimeFormat.dart';
+import 'package:floradb/site_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -35,6 +32,7 @@ class _ForumHomeState extends State<ForumHome> {
                   .toList();
               return ListView(
                 shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
                 children: threads.length < 2
                     ? threads
                         .map((ForumThread e) => ThreadTile.buildInstance(e))
@@ -72,13 +70,6 @@ class _ForumHomeState extends State<ForumHome> {
                     color: AppColor.textColor,
                   ).pOnly(right: 2),
                   'Threads: ${element.threadIDs.length}'.text.size(14).make(),
-                  Gaps.hGap16,
-                  Icon(
-                    Icons.chat_outlined,
-                    size: 16,
-                    color: AppColor.textColor,
-                  ).pOnly(right: 2),
-                  'Posts: ${element.threadIDs.length}'.text.size(14).make(),
                 ],
               ),
               Align(
@@ -92,12 +83,14 @@ class _ForumHomeState extends State<ForumHome> {
                   ? BrownButton(
                           label: 'Xem tất cả',
                           icon: Icons.chevron_right,
-                          onPress: () {})
+                          onPress: () => Get.toNamed(SiteNavigation.ALLTHREADS,
+                              arguments: [element.id, element.title]))
                       .pSymmetric(h: 16)
                   : BrownButton(
                           label: 'Tạo thảo luận mới',
                           icon: Icons.add,
-                          onPress: () {})
+                          onPress: () => Get.toNamed(SiteNavigation.ADDTHREAD,
+                              arguments: element.id))
                       .pOnly(top: 10)
                       .pSymmetric(h: 16),
             ],
