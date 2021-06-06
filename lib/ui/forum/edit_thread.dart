@@ -6,18 +6,22 @@ import 'package:floradb/controller/forum_controller.dart';
 import 'package:floradb/model/forum/thread.dart';
 import 'package:floradb/res/app_color.dart';
 import 'package:floradb/res/gaps.dart';
+import 'package:floradb/site_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:floradb/utils/file_extends.dart';
 
-class AddThread extends StatelessWidget {
-  final AuthController _authController = Get.find();
+class EditThread extends StatelessWidget {
   final ForumController _forumController = Get.find();
-  final String categoryID = Get.arguments;
+  final String categoryID = Get.arguments[0];
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _contentController = TextEditingController();
+  final TextEditingController _titleController =
+      TextEditingController(text: Get.arguments[1]);
+  final TextEditingController _contentController =
+      TextEditingController(text: Get.arguments[2]);
+  final String threadID = Get.arguments[3];
+  final String imageUrl = Get.arguments[4];
   final imageFileName = ''.obs;
   final imageFilePath = ''.obs;
 
@@ -35,8 +39,7 @@ class AddThread extends StatelessWidget {
             Gaps.vGap8,
             Align(
               alignment: Alignment.centerLeft,
-              child:
-                  'Tạo thảo luận mới'.text.size(20).make().pSymmetric(h: 8),
+              child: 'Sửa thảo luận'.text.size(20).make().pSymmetric(h: 8),
             ),
             Gaps.vGap20,
             Align(
@@ -98,7 +101,13 @@ class AddThread extends StatelessWidget {
                     maxLines: 10,
                   ).pSymmetric(h: 8, v: 4),
                   Obx(() => imageFileName.value == ''
-                      ? Gaps.empty
+                      ? imageUrl == ""
+                          ? Gaps.empty
+                          : Image.network(
+                              imageUrl,
+                              height: 120,
+                              width: 120,
+                            ).pOnly(left: 8)
                       : Image.file(
                           File(imageFilePath.value),
                           width: 120,
@@ -109,7 +118,7 @@ class AddThread extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       BrownButton(
-                          label: 'Thêm ảnh',
+                          label: 'Sửa ảnh',
                           icon: Icons.attach_file,
                           onPress: () async {
                             var imageFile =
@@ -121,43 +130,20 @@ class AddThread extends StatelessWidget {
                             }
                           }),
                       BrownButton(
-                          label: 'Đăng thảo luận',
-                          icon: Icons.add,
+                          label: 'Sửa thảo luận',
+                          icon: Icons.edit,
                           onPress: () async {
-                            if (_formKey.currentState!.validate()) {
-                              var poster =
-                                  _authController.firestoreUser.value!.userName;
-                              var posterAvatar = _authController
-                                  .firestoreUser.value!.avatarURL!;
-                              ForumThread thread = ForumThread(
-                                  id: '',
-                                  poster: poster,
-                                  posterAvatar: posterAvatar,
-                                  categoryID: categoryID,
-                                  title: _titleController.text,
-                                  content: _contentController.text,
-                                  replies: 0,
-                                  createdOn: DateTime.now(),
-                                  attachedImage: '');
-                              if (imageFilePath.value != '') {
-                                _forumController
-                                    .addThreadWithAttachedImage(
-                                        thread, imageFilePath.value)
-                                    .then((value) {
-                                  Get.back(result: true);
-                                  Get.snackbar(
-                                      '', 'Đăng thảo luận thành công');
-                                });
-                              } else {
-                                _forumController
-                                    .addThread(thread)
-                                    .then((value) {
-                                  Get.back(result: true);
-                                  Get.snackbar(
-                                      '', 'Đăng thảo luận thành công');
-                                });
-                              }
-                            }
+                            _forumController
+                                .editThread(
+                                    threadID,
+                                    _titleController.text,
+                                    _contentController.text,
+                                    imageUrl,
+                                    imageFilePath.value)
+                                .then((value) {
+                              Get.back(result: true);
+                              Get.snackbar('', 'Sửa thảo luận thành công');
+                            });
                           }).pSymmetric(v: 15),
                     ],
                   ).pSymmetric(h: 8),

@@ -13,4 +13,6 @@ class SiteNavigation {
   static const THREADDETAIL = '/threaddetail';
   static const ADDREPLY = '/addreply';
   static const ADDTHREAD = '/addthread';
+  static const EDITREPLY = '/editreply';
+  static const EDITTHREAD = '/editthread';
 }

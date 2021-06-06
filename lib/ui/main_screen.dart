@@ -42,7 +42,7 @@ class _MainScreenState extends State<MainScreen>
         ForumHome(),
         CustomBottomAppBarItem(
           key: appState.keyMenuForum,
-          icon: Icons.forum_outlined,
+          icon: Icons.wysiwyg_outlined,
           title: 'Diễn đàn',
         ));
 
@@ -51,7 +51,7 @@ class _MainScreenState extends State<MainScreen>
         CustomBottomAppBarItem(
           key: appState.keyMenuQA,
           //todo: add q and a icon
-          icon: Icons.question_answer,
+          icon: Icons.question_answer_outlined,
           title: 'Hỏi đáp',
         ));
 

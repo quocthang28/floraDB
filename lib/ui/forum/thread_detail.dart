@@ -28,33 +28,80 @@ class ThreadDetail extends StatelessWidget {
                   child:
                       thread.title.text.color(AppColor.green).size(25).make())
               .pOnly(left: 8),
-          ListTile(
-            visualDensity: VisualDensity.compact,
-            trailing: '#1'.text.make(),
-            leading: Image.network(
-              thread.posterAvatar,
-              width: 40,
-              height: 40,
-            ),
-            title: thread.poster.text.make(),
-            subtitle: Row(
-              children: [
-                '${thread.replies} trả lời • '.text.size(14).make(),
-                //getTimeAgo(thread.createdOn.toString())!.text.size(14).make(),
-                timeago.format(thread.createdOn, locale: "vi").text.make(),
-              ],
-            ).pOnly(top: 2),
+          Stack(
+            children: [
+              ListTile(
+                visualDensity: VisualDensity.compact,
+                trailing: '#1'.text.make(),
+                leading: Image.network(
+                  thread.posterAvatar,
+                  width: 40,
+                  height: 40,
+                ),
+                title: thread.poster.text.make(),
+                subtitle: Row(
+                  children: [
+                    '${thread.replies} trả lời • '.text.size(14).make(),
+                    //getTimeAgo(thread.createdOn.toString())!.text.size(14).make(),
+                    timeago.format(thread.createdOn, locale: "vi").text.make(),
+                  ],
+                ).pOnly(top: 2),
+              ),
+              _authController.firestoreUser.value!.userName == thread.poster
+                  ? Positioned(
+                      bottom: 35,
+                      right: 2,
+                      child: PopupMenuButton<String>(
+                        icon: Icon(
+                          Icons.more_horiz,
+                          color: AppColor.textColor,
+                        ),
+                        onSelected: (value) {
+                          value == 'Sửa'
+                              ? Get.toNamed(SiteNavigation.EDITTHREAD,
+                                  arguments: [
+                                      thread.categoryID,
+                                      thread.title,
+                                      thread.content,
+                                      thread.id,
+                                      thread.attachedImage
+                                    ])
+                              : _forumController
+                                  .deleteThread(thread.id, thread.categoryID,
+                                      thread.attachedImage)
+                                  .then((value) {
+                                  Get.back();
+                                  Get.snackbar(
+                                      '', 'Xóa thảo luận thành công');
+                                });
+                        },
+                        itemBuilder: (BuildContext context) {
+                          return {'Sửa', 'Xóa'}.map((String choice) {
+                            return PopupMenuItem<String>(
+                              value: choice,
+                              child: Text(choice,
+                                  style: TextStyle(color: AppColor.brown)),
+                            );
+                          }).toList();
+                        },
+                      ),
+                    )
+                  : Gaps.empty,
+            ],
           ),
           Divider(
             height: 1,
             thickness: 1,
           ).pOnly(bottom: 6).pSymmetric(h: 8),
-          thread.content.text
-              .size(16.0)
-              .color(AppColor.textColor)
-              .align(TextAlign.justify)
-              .make()
-              .pSymmetric(h: 8.0),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: thread.content.text
+                .size(16.0)
+                .color(AppColor.textColor)
+                .align(TextAlign.justify)
+                .make()
+                .pSymmetric(h: 8.0),
+          ),
           thread.attachedImage.isNotEmpty
               ? Image.network(
                   thread.attachedImage,
@@ -85,38 +132,64 @@ class ThreadDetail extends StatelessWidget {
                 itemCount: replies.length,
                 itemBuilder: (context, index) => Column(
                   children: <Widget>[
-                    // Align(
-                    //   alignment: Alignment.topRight,
-                    //   child: PopupMenuButton<String>(
-                    //     icon: Icon(Icons.more_horiz),
-                    //     onSelected: (value) {
-                    //       print(value);
-                    //     },
-                    //     itemBuilder: (BuildContext context) {
-                    //       return {'Logout', 'Settings'}.map((String choice) {
-                    //         return PopupMenuItem<String>(
-                    //           value: choice,
-                    //           child: Text(choice),
-                    //         );
-                    //       }).toList();
-                    //     },
-                    //   ),
-                    // ),
-                    //TODO: VXPOPUPMENU
-                    ListTile(
-                      visualDensity: VisualDensity.compact,
-                      trailing:
-                          '#${index + 2}'.text.color(AppColor.textColor).make(),
-                      leading: Image.network(
-                        replies[index].avatarUrl,
-                        width: 40,
-                        height: 40,
-                      ),
-                      title: replies[index].userName.text.make(),
-                      subtitle: timeago
-                          .format(replies[index].createdOn, locale: "vi")
-                          .text
-                          .make(),
+                    Stack(
+                      children: [
+                        ListTile(
+                          visualDensity: VisualDensity.compact,
+                          trailing: '#${index + 2}'
+                              .text
+                              .color(AppColor.textColor)
+                              .make(),
+                          leading: Image.network(
+                            replies[index].avatarUrl,
+                            width: 40,
+                            height: 40,
+                          ),
+                          title: replies[index].userName.text.make(),
+                          subtitle: timeago
+                              .format(replies[index].createdOn, locale: "vi")
+                              .text
+                              .make(),
+                        ),
+                        _authController.firestoreUser.value!.uid ==
+                                replies[index].posterID
+                            ? Positioned(
+                                bottom: 35,
+                                right: 2,
+                                child: PopupMenuButton<String>(
+                                  icon: Icon(
+                                    Icons.more_horiz,
+                                    color: AppColor.textColor,
+                                  ),
+                                  onSelected: (value) {
+                                    value == 'Sửa'
+                                        ? Get.toNamed(SiteNavigation.EDITREPLY,
+                                            arguments: [
+                                                thread.title,
+                                                replies[index].id,
+                                                replies[index].content,
+                                                replies[index].attachedImage
+                                              ])
+                                        : _forumController.deleteReply(
+                                            replies[index].id!,
+                                            replies[index].threadID,
+                                            replies[index].attachedImage);
+                                  },
+                                  itemBuilder: (BuildContext context) {
+                                    return {'Sửa', 'Xóa'}
+                                        .map((String choice) {
+                                      return PopupMenuItem<String>(
+                                        value: choice,
+                                        child: Text(choice,
+                                            style: TextStyle(
+                                                color: AppColor.brown)),
+                                      );
+                                    }).toList();
+                                  },
+                                ),
+                              )
+                            : Gaps.empty,
+                      ],
                     ),
                     Divider(
                       height: 1,

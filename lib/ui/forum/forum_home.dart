@@ -15,10 +15,15 @@ class ForumHome extends StatefulWidget {
   _ForumHomeState createState() => _ForumHomeState();
 }
 
-class _ForumHomeState extends State<ForumHome> {
+class _ForumHomeState extends State<ForumHome>
+    with AutomaticKeepAliveClientMixin<ForumHome> {
   final ForumController _forumController = Get.find();
 
+  @override
+  bool get wantKeepAlive => true;
+
   Widget build(BuildContext context) {
+    super.build(context);
     Widget _buildThreads(String id) {
       return StreamBuilder(
           stream: _forumController.streamForumThread(id),

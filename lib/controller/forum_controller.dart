@@ -98,6 +98,35 @@ class ForumController extends GetxController {
     });
   }
 
+  Future<void> editReply(
+      String content, String replyID, String imageUrl, String imagePath) {
+    if (imagePath != "") {
+      if (imageUrl != "") {
+        _databaseService.storage.refFromURL(imageUrl).delete();
+      }
+
+      Reference reference = _databaseService.storage
+          .ref()
+          .child('thread_reply_images/${_generateFileName()}');
+
+      UploadTask uploadTask = reference.putFile(File(imagePath));
+
+      uploadTask.whenComplete(() async {
+        await uploadTask.snapshot.ref.getDownloadURL().then((value) {
+          _databaseService.firestore
+              .collection('thread_reply')
+              .doc(replyID)
+              .update({"attachedimage": value});
+        });
+      });
+    }
+
+    return _databaseService.firestore
+        .collection('thread_reply')
+        .doc(replyID)
+        .update({"content": content});
+  }
+
   Future<void> addReplyWithAttachedImage(
       ThreadReply reply, String imagePath) async {
     Reference reference = _databaseService.storage
@@ -111,6 +140,20 @@ class ForumController extends GetxController {
       reply.attachedImage = downloadUrl;
       addReply(reply);
     });
+  }
+
+  Future<void> deleteReply(String replyID, String threadID, String imageUrl) {
+    if (imageUrl != "") {
+      _databaseService.storage.refFromURL(imageUrl).delete();
+    }
+    return _databaseService.firestore
+        .collection('thread_reply')
+        .doc(replyID)
+        .delete()
+        .then((value) => _databaseService.firestore
+            .collection('forum_thread')
+            .doc(threadID)
+            .update({"replies": FieldValue.increment(-1)}));
   }
 
   Future<void> addThread(ForumThread thread) {
@@ -144,5 +187,51 @@ class ForumController extends GetxController {
       thread.attachedImage = downloadUrl;
       addThread(thread);
     });
+  }
+
+  Future<void> editThread(String threadID, String title, String content,
+      String imageUrl, String imagePath) {
+    if (imagePath != "") {
+      if (imageUrl != "") {
+        _databaseService.storage.refFromURL(imageUrl).delete();
+      }
+
+      Reference reference = _databaseService.storage
+          .ref()
+          .child('forum_thread_images/${_generateFileName()}');
+
+      UploadTask uploadTask = reference.putFile(File(imagePath));
+
+      uploadTask.whenComplete(() async {
+        await uploadTask.snapshot.ref.getDownloadURL().then((value) {
+          _databaseService.firestore
+              .collection('forum_thread')
+              .doc(threadID)
+              .update({"attachedimage": value});
+        });
+      });
+    }
+    return _databaseService.firestore
+        .collection('forum_thread')
+        .doc(threadID)
+        .update({"title": title, "content": content});
+  }
+
+  Future<void> deleteThread(
+      String threadID, String categoryID, String imageUrl) {
+    if (imageUrl != "") {
+      _databaseService.storage.refFromURL(imageUrl).delete();
+    }
+
+    return _databaseService.firestore
+        .collection('forum_thread')
+        .doc(threadID)
+        .delete()
+        .then((value) => _databaseService.firestore
+                .collection('forum_category')
+                .doc(categoryID)
+                .update({
+              "threadids": FieldValue.arrayRemove([threadID])
+            }));
   }
 }

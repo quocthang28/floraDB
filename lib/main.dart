@@ -11,6 +11,8 @@ import 'package:floradb/site_navigation.dart';
 import 'package:floradb/ui/forum/add_reply.dart';
 import 'package:floradb/ui/forum/add_thread.dart';
 import 'package:floradb/ui/forum/all_threads.dart';
+import 'package:floradb/ui/forum/edit_reply.dart';
+import 'package:floradb/ui/forum/edit_thread.dart';
 import 'package:floradb/ui/forum/thread_detail.dart';
 import 'package:floradb/ui/main_screen.dart';
 import 'package:floradb/ui/plant/plant_detail.dart';
@@ -74,6 +76,8 @@ class MyApp extends StatelessWidget {
         GetPage(name: SiteNavigation.THREADDETAIL, page: () => ThreadDetail()),
         GetPage(name: SiteNavigation.ADDREPLY, page: () => AddReply()),
         GetPage(name: SiteNavigation.ADDTHREAD, page: () => AddThread()),
+        GetPage(name: SiteNavigation.EDITREPLY, page: () => EditReply()),
+        GetPage(name: SiteNavigation.EDITTHREAD, page: () => EditThread()),
       ],
     );
   }

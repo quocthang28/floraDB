@@ -2,7 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ThreadReply {
   ThreadReply(
-      {required this.posterID,
+      {this.id,
+      required this.posterID,
       required this.threadID,
       required this.userName,
       required this.avatarUrl,
@@ -10,6 +11,7 @@ class ThreadReply {
       required this.content,
       required this.attachedImage});
 
+  String? id;
   String posterID;
   String threadID;
   String userName;
@@ -20,6 +22,7 @@ class ThreadReply {
 
   factory ThreadReply.fromQuerySnapshot(QueryDocumentSnapshot snapshot) {
     return ThreadReply(
+        id: snapshot.id,
         posterID: snapshot['posterid'],
         threadID: snapshot['threadid'],
         userName: snapshot['username'],
