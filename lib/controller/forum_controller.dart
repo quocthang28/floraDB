@@ -78,7 +78,8 @@ class ForumController extends GetxController {
     var permissionStatus = await Permission.photos.status;
 
     if (permissionStatus.isGranted) {
-      image = await picker.getImage(source: ImageSource.gallery);
+      image =
+          await picker.getImage(source: ImageSource.gallery, imageQuality: 85);
       if (image != null) {
         var file = File(image.path);
         return file;

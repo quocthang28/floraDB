@@ -87,10 +87,10 @@ class AddReply extends StatelessWidget {
                       ? Gaps.empty
                       : Image.file(
                           File(imageFilePath.value),
-                          width: 120,
-                          height: 120,
+                          width: double.infinity,
+                          height: 200,
                           fit: BoxFit.cover,
-                        ).pOnly(top: 8, left: 8)),
+                        ).pOnly(top: 8).pSymmetric(h: 8)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

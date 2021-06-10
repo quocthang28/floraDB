@@ -82,9 +82,10 @@ class EditReply extends StatelessWidget {
                           ? Gaps.empty
                           : Image.network(
                               imageUrl,
-                              height: 120,
-                              width: 120,
-                            ).pOnly(left: 8)
+                              height: 200,
+                              width: double.infinity,
+                              fit: BoxFit.cover,
+                            ).pOnly(top: 8).pSymmetric(h: 8)
                       : Image.file(
                           File(imageFilePath.value),
                           width: 120,

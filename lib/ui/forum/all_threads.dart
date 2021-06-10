@@ -28,7 +28,7 @@ class AllThreads extends StatelessWidget {
             Get.toNamed(SiteNavigation.ADDTHREAD, arguments: categoryID),
         backgroundColor: AppColor.lightBrown,
         child: Icon(
-          Icons.add,
+          Icons.edit,
           color: Colors.white,
         ),
       ),
@@ -45,7 +45,7 @@ class AllThreads extends StatelessWidget {
                   ThreadTile.buildInstance(threads[index]),
               separatorBuilder: (context, index) => Divider(
                 thickness: 2,
-              ),
+              ).pSymmetric(h: 16),
             );
           } else
             return Gaps.empty;

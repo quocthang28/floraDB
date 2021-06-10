@@ -4,6 +4,7 @@ class SiteNavigation {
   static const HOME = '/home';
   static const LOGIN = '/login';
   static const SIGNUP = '/signup';
+  //plant db
   static const ALLCATEGORIES = '/allcategories';
   static const PLANTCATEGORYDETAIL = '/plantcategorydetail';
   static const ALLPLANT = '/ALLPLANT';
@@ -15,4 +16,7 @@ class SiteNavigation {
   static const ADDTHREAD = '/addthread';
   static const EDITREPLY = '/editreply';
   static const EDITTHREAD = '/editthread';
+  //question and answer
+  static const ADDQUESTION = '/addquestion';
+  static const QUESTIONDETAIL = '/questiondetail';
 }

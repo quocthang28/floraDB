@@ -20,6 +20,7 @@ class ThreadDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    timeago.setLocaleMessages('vi', timeago.ViMessages());
     Widget _buildThread() {
       return Column(
         children: <Widget>[

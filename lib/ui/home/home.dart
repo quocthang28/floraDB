@@ -33,7 +33,6 @@ class _HomeScreenState extends State<HomeScreen>
         iconTheme: IconThemeData(color: AppColor.green),
         title: 'floraDB'.text.semiBold.color(AppColor.green).make(),
       ),
-      drawer: AppDrawer(),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -58,12 +57,17 @@ class _HomeScreenState extends State<HomeScreen>
                     List<ForumThread> threads = snapshot.data!.docs
                         .map((thread) => ForumThread.fromQuerySnapshot(thread))
                         .toList();
-                    return ListView(
+                    var threadTiles = threads
+                        .map((ForumThread e) => ThreadTile.buildInstance(e))
+                        .toList();
+                    return ListView.separated(
+                      itemCount: threadTiles.length,
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      children: threads
-                          .map((ForumThread e) => ThreadTile.buildInstance(e))
-                          .toList(),
+                      itemBuilder: (context, index) => threadTiles[index],
+                      separatorBuilder: (context, index) => Divider(
+                        thickness: 2,
+                      ).pSymmetric(h: 16),
                     );
                   }
                 }),

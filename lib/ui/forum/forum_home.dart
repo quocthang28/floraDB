@@ -66,7 +66,7 @@ class _ForumHomeState extends State<ForumHome>
                       .size(22)
                       .color(AppColor.green)
                       .make()
-                      .pOnly(top: 12)),
+                      .pOnly(top: 12, left: 8)),
               Row(
                 children: [
                   Icon(
@@ -76,7 +76,7 @@ class _ForumHomeState extends State<ForumHome>
                   ).pOnly(right: 2),
                   'Threads: ${element.threadIDs.length}'.text.size(14).make(),
                 ],
-              ),
+              ).pOnly(left: 8),
               Align(
                       alignment: Alignment.centerLeft,
                       child: element.threadIDs.length != 0
@@ -98,8 +98,12 @@ class _ForumHomeState extends State<ForumHome>
                               arguments: element.id))
                       .pOnly(top: 10)
                       .pSymmetric(h: 16),
+              Divider(
+                height: 12,
+                thickness: 10,
+              ).pOnly(top: 10),
             ],
-          ).pSymmetric(h: 8),
+          ),
         );
       });
       return Column(

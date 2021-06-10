@@ -4,6 +4,7 @@ import 'package:floradb/controller/auth_controller.dart';
 import 'package:floradb/controller/forum_controller.dart';
 import 'package:floradb/controller/plant_category_controller.dart';
 import 'package:floradb/controller/plant_controller.dart';
+import 'package:floradb/controller/qa_controller.dart';
 import 'package:floradb/controller/user_controller.dart';
 import 'package:floradb/res/app_color.dart';
 import 'package:floradb/service/database_service.dart';
@@ -21,6 +22,8 @@ import 'package:floradb/ui/home/home.dart';
 import 'package:floradb/ui/auth/login.dart';
 import 'package:floradb/ui/plant_category/plant_category_detail.dart';
 import 'package:floradb/ui/auth/sign_up.dart';
+import 'package:floradb/ui/qanda/add_question.dart';
+import 'package:floradb/ui/qanda/question_detail.dart';
 import 'package:floradb/ui/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -58,6 +61,7 @@ class MyApp extends StatelessWidget {
             fenix: true);
         Get.lazyPut<PlantController>(() => PlantController(), fenix: true);
         Get.lazyPut<ForumController>(() => ForumController(), fenix: true);
+        Get.lazyPut<QAController>(() => QAController(), fenix: true);
       }),
       initialRoute: SiteNavigation.SPLASH,
       getPages: [
@@ -78,6 +82,9 @@ class MyApp extends StatelessWidget {
         GetPage(name: SiteNavigation.ADDTHREAD, page: () => AddThread()),
         GetPage(name: SiteNavigation.EDITREPLY, page: () => EditReply()),
         GetPage(name: SiteNavigation.EDITTHREAD, page: () => EditThread()),
+        GetPage(name: SiteNavigation.ADDQUESTION, page: () => AddQuestion()),
+        GetPage(
+            name: SiteNavigation.QUESTIONDETAIL, page: () => QuestionDetail()),
       ],
     );
   }

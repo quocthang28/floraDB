@@ -45,7 +45,7 @@ class PlantListView extends StatelessWidget {
             child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              'Danh mục hiện chưa có cây cảnh.'.text.make(),
+              'Danh mục này chưa có cây cảnh.'.text.make(),
               //TODO: ADD BUTTON FUNCTION
               Gaps.vGap16,
               BrownButton(

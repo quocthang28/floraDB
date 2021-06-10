@@ -17,6 +17,7 @@ class ThreadTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    timeago.setLocaleMessages('vi', timeago.ViMessages());
     return ListTile(
       onTap: () =>
           Get.toNamed(SiteNavigation.THREADDETAIL, arguments: [thread]),

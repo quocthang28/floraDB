@@ -3,10 +3,8 @@ import 'dart:io';
 import 'package:floradb/common_widget/brown_button.dart';
 import 'package:floradb/controller/auth_controller.dart';
 import 'package:floradb/controller/forum_controller.dart';
-import 'package:floradb/model/forum/thread.dart';
 import 'package:floradb/res/app_color.dart';
 import 'package:floradb/res/gaps.dart';
-import 'package:floradb/site_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -105,9 +103,10 @@ class EditThread extends StatelessWidget {
                           ? Gaps.empty
                           : Image.network(
                               imageUrl,
-                              height: 120,
-                              width: 120,
-                            ).pOnly(left: 8)
+                              height: 200,
+                              width: double.infinity,
+                              fit: BoxFit.cover,
+                            ).pOnly(top: 8).pSymmetric(h: 8)
                       : Image.file(
                           File(imageFilePath.value),
                           width: 120,
