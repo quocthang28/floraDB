@@ -33,13 +33,6 @@ class AuthController extends GetxController {
     super.onInit();
   }
 
-  // bool checkIfUserExists(){
-  //   var collectionRef = Firestore.instance.collection('/users/${_firebaseUser.value!.uid}');
-  //
-  //   var doc = await collectionRef.document(docId).get();
-  //   return doc.exists;
-  // }
-
   Stream<UserModel> streamFirestoreUser() {
     // return user data from firestore
     return _db

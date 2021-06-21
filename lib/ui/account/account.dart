@@ -1,67 +1,83 @@
 import 'package:floradb/common_widget/text_with_border.dart';
 import 'package:floradb/common_widget/user_avatar.dart';
 import 'package:floradb/controller/auth_controller.dart';
+import 'package:floradb/controller/forum_controller.dart';
+import 'package:floradb/controller/qa_controller.dart';
 import 'package:floradb/controller/user_controller.dart';
 import 'package:floradb/gen/assets.gen.dart';
 import 'package:floradb/res/app_color.dart';
+import 'package:floradb/res/gaps.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class Account extends StatelessWidget {
+class Account extends StatefulWidget {
+  @override
+  _AccountState createState() => _AccountState();
+}
+
+class _AccountState extends State<Account>
+    with
+        SingleTickerProviderStateMixin,
+        AutomaticKeepAliveClientMixin<Account> {
   final AuthController _authController = Get.find();
-  final UserController _userController = Get.find();
+  final ForumController _forumController = Get.find();
+  final QAController _qaController = Get.find();
+  late TabController _tabController;
+
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
+  void initState() {
+    _tabController = TabController(length: 2, vsync: this);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     var user = _authController.firestoreUser.value!;
     String level = _authController.isAd.value ? 'Admin' : 'Thành viên';
+    DateTime now = DateTime.now();
     return Scaffold(
       appBar: AppBar(
         elevation: 4.0,
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: AppColor.green),
         title: 'Tài khoản'.text.semiBold.color(AppColor.green).make(),
+        actions: [
+          IconButton(
+            onPressed: () => _authController.signOut(),
+            icon: Icon(Icons.logout),
+          )
+        ],
       ),
       body: Column(
         children: <Widget>[
-          Stack(
-            children: [
-              Assets.images.avatarbackground.image(),
-              Positioned(
-                  top: 70.0, child: UserAvatar(w: 100.0, h: 100.0, r: 30.0)),
-              Positioned(
-                  top: 90,
-                  left: 80,
-                  child: TextWithBorder(
-                    text: user.userName,
-                    size: 22.0,
-                    borderColor: Colors.black,
-                  )),
-              Positioned(
-                  top: 120,
-                  left: 80,
-                  child: TextWithBorder(
-                    text: 'Cấp độ: $level',
-                    size: 16.0,
-                    borderColor: Colors.black,
-                  )),
+          Row(
+            children: <Widget>[
+              UserAvatar(w: 100.0, h: 100.0, r: 30.0)
+                  .pOnly(top: 8, left: 8, right: 8),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  user.userName.text.size(20).make(),
+                  'Cấp độ: $level'.text.make(),
+                  Row(
+                    children: [
+                      'Ngày gia nhập: '.text.make(),
+                      DateFormat('d/M/y').format(now).text.make(),
+                    ],
+                  ),
+                ],
+              ).expand(),
             ],
           ),
-          DrawerAction(
-              icon: Icons.account_circle_outlined,
-              title: 'Đổi ảnh đại diện',
-              onTap: () => _userController.changeAvatar()),
-          Divider(height: 1, thickness: 1),
-          DrawerAction(
-              icon: Icons.info_outline,
-              title: 'Thông tin ứng dụng',
-              onTap: () {}),
-          Divider(height: 1, thickness: 1),
-          DrawerAction(
-              icon: Icons.logout,
-              title: 'Đăng xuất',
-              onTap: () => _authController.signOut()),
+          Divider(
+            thickness: 1,
+          ),
         ],
       ),
     );

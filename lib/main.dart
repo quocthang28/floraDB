@@ -16,6 +16,7 @@ import 'package:floradb/ui/forum/edit_reply.dart';
 import 'package:floradb/ui/forum/edit_thread.dart';
 import 'package:floradb/ui/forum/thread_detail.dart';
 import 'package:floradb/ui/main_screen.dart';
+import 'package:floradb/ui/my_plant/my_plant.dart';
 import 'package:floradb/ui/plant/plant_detail.dart';
 import 'package:floradb/ui/plant_category/all_plant_categories.dart';
 import 'package:floradb/ui/home/home.dart';
@@ -85,6 +86,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: SiteNavigation.ADDQUESTION, page: () => AddQuestion()),
         GetPage(
             name: SiteNavigation.QUESTIONDETAIL, page: () => QuestionDetail()),
+        GetPage(name: SiteNavigation.MYPLANT, page: () => MyPlant()),
       ],
     );
   }

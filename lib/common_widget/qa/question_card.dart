@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:floradb/common_widget/full_screen_image.dart';
 import 'package:floradb/model/qa/question.dart';
@@ -18,8 +20,17 @@ class QuestionCard extends StatelessWidget {
     return QuestionCard(question);
   }
 
+  String _generateTag() {
+    Random ran = Random();
+    DateTime dateTime = DateTime.now();
+    return dateTime.microsecond.toString() +
+        dateTime.microsecond.toString() +
+        ran.nextInt(100).toString();
+  }
+
   @override
   Widget build(BuildContext context) {
+    String tag = _generateTag();
     timeago.setLocaleMessages('vi', timeago.ViMessages());
     return Card(
       shape: RoundedRectangleBorder(
@@ -35,7 +46,7 @@ class QuestionCard extends StatelessWidget {
                     Navigator.push(context, MaterialPageRoute(builder: (_) {
                       return FullScreenImage(
                         imageUrl: question.attachedImage,
-                        tag: "generate_a_unique_tag",
+                        tag: tag,
                       );
                     }));
                   },
@@ -52,7 +63,7 @@ class QuestionCard extends StatelessWidget {
                       errorWidget: (context, url, error) => Icon(Icons.error),
                       fit: BoxFit.cover,
                     ),
-                    tag: "generate_a_unique_tag",
+                    tag: tag,
                   ),
                 )
               : Gaps.empty,

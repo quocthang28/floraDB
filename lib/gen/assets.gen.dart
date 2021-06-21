@@ -14,6 +14,7 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/background.jpg');
   AssetGenImage get defaultavatar =>
       const AssetGenImage('assets/images/defaultavatar.png');
+  AssetGenImage get myplant => const AssetGenImage('assets/images/myplant.png');
 }
 
 class Assets {

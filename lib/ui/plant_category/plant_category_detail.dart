@@ -8,6 +8,7 @@ import 'package:floradb/controller/plant_category_controller.dart';
 import 'package:floradb/controller/plant_controller.dart';
 import 'package:floradb/model/plant/plant.dart';
 import 'package:floradb/res/app_color.dart';
+import 'package:floradb/res/gaps.dart';
 import 'package:floradb/site_navigation.dart';
 import 'package:floradb/ui/plant/all_plant.dart';
 import 'package:flutter/material.dart';
@@ -71,6 +72,7 @@ class PlantCategoryDetail extends StatelessWidget {
               .align(TextAlign.justify)
               .make()
               .pSymmetric(h: 8.0),
+          Gaps.vGap10,
         ],
       );
     }

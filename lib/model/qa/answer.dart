@@ -19,6 +19,7 @@ class Answer {
   int likes;
   int dislikes;
   String content;
+  //todo: add attached image
 
   factory Answer.fromSnapshot(DocumentSnapshot snapshot) {
     return Answer(

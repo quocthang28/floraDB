@@ -1,12 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:floradb/common_widget/forum/thread_tile.dart';
+import 'package:floradb/common_widget/text_with_border.dart';
 import 'package:floradb/controller/forum_controller.dart';
+import 'package:floradb/gen/assets.gen.dart';
 import 'package:floradb/model/forum/thread.dart';
 import 'package:floradb/res/app_color.dart';
+import 'package:floradb/site_navigation.dart';
 import 'package:floradb/ui/home/home_drawer.dart';
 import 'package:floradb/common_widget/header.dart';
 import 'package:floradb/res/gaps.dart';
 import 'package:floradb/common_widget/plant/plant_categories_grid.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -31,11 +35,31 @@ class _HomeScreenState extends State<HomeScreen>
         elevation: 4.0,
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: AppColor.green),
-        title: 'floraDB'.text.semiBold.color(AppColor.green).make(),
+        title: 'myPlant'.text.semiBold.color(AppColor.green).make(),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
+            Gaps.vGap8,
+            GestureDetector(
+              onTap: () => Get.toNamed(SiteNavigation.MYPLANT),
+              child: Card(
+                color: Colors.green[200],
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    TextWithBorder(
+                      text: 'Cây cảnh\ncủa bạn',
+                      size: 35,
+                      borderColor: Colors.black,
+                      fillColor: Colors.white,
+                      strokeWidth: 4,
+                    ).pOnly(left: 10),
+                    Assets.images.myplant.image(width: 120, height: 120).p(10),
+                  ],
+                ),
+              ).pSymmetric(h: 4),
+            ),
             Gaps.vGap8,
             Align(
               alignment: Alignment.centerLeft,

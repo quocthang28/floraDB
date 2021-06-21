@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:floradb/common_widget/qa/answer_tile.dart';
 import 'package:floradb/common_widget/qa/question_card.dart';
 import 'package:floradb/controller/auth_controller.dart';
@@ -19,6 +21,8 @@ class QuestionDetail extends StatelessWidget {
   final ScrollController _scrollController = ScrollController();
   final TextEditingController _textEditingController = TextEditingController();
   final isDisabled = true.obs;
+  final imageFilePath = ''.obs;
+  final textFieldHeight = 60.0.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -52,86 +56,82 @@ class QuestionDetail extends StatelessWidget {
       );
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 4.0,
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: AppColor.green),
-        title:
-            questionTitle.text.semiBold.ellipsis.color(AppColor.green).make(),
-      ),
-      body: KeyboardDismissOnTap(
-        child: Stack(
-          children: [
-            StreamBuilder<Question>(
-              stream: _qaController.streamQuestion(questionID),
-              builder: (context, AsyncSnapshot<Question> snapshot) {
-                if (!snapshot.hasData) {
-                  return Gaps.empty;
-                }
-                Question question = snapshot.data!;
-                return SingleChildScrollView(
-                  controller: _scrollController,
-                  child: Column(
-                    children: <Widget>[
-                      QuestionCard.buildInstance(question),
-                      Divider(
-                        height: 12,
-                        thickness: 10,
-                      ),
-                      _buildAnswers(),
-                      SizedBox(
-                        height: 60,
-                      ),
-                    ],
-                  ),
-                );
-              },
+    Widget _buildAnswerField() {
+      return Obx(
+        () => Align(
+          alignment: Alignment.bottomCenter,
+          child: AnimatedContainer(
+            duration: Duration(milliseconds: 500),
+            height: textFieldHeight.value,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border(
+                top: BorderSide(width: 1, color: Colors.grey),
+              ),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border(
-                    top: BorderSide(width: 1, color: Colors.grey),
-                  ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: imageFilePath.value != ''
+                      ? Image.file(
+                          File(imageFilePath.value),
+                          height: 59,
+                          width: 59,
+                          fit: BoxFit.cover,
+                        ).p(4)
+                      : Gaps.empty,
                 ),
-                child: Row(
-                  children: [
-                    Gaps.hGap4,
-                    Image.network(
-                      _authController.firestoreUser.value!.avatarURL!,
-                      width: 25,
-                      height: 25,
-                    ),
-                    Gaps.hGap8,
-                    TextField(
-                      controller: _textEditingController,
-                      maxLines: null,
-                      decoration: InputDecoration(
-                        isDense: true,
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                        hintText: 'Viết câu trả lời của bạn',
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: AppColor.green, width: 0.5),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: AppColor.brown, width: 0.5),
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: AppColor.green, width: 0.5),
-                        ),
+                Container(
+                  height: 59,
+                  child: Row(
+                    children: [
+                      Gaps.hGap4,
+                      Image.network(
+                        _authController.firestoreUser.value!.avatarURL!,
+                        width: 25,
+                        height: 25,
                       ),
-                      onChanged: (value) => isDisabled.value =
-                          _textEditingController.text.isEmptyOrNull,
-                    ).expand(),
-                    Obx(
-                      () => IconButton(
+                      Gaps.hGap8,
+                      TextField(
+                        controller: _textEditingController,
+                        maxLines: null,
+                        decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              _qaController.attachImage().then((value) {
+                                if (value != null) {
+                                  textFieldHeight.value = 130;
+                                  Future.delayed(Duration(milliseconds: 600),
+                                      () => imageFilePath.value = value.path);
+                                }
+                              });
+                            },
+                            icon:
+                                Icon(Icons.attach_file, color: AppColor.brown),
+                          ), //Icon
+                          isDense: true,
+                          contentPadding:
+                              EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                          hintText: 'Viết câu trả lời của bạn',
+                          enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: AppColor.green, width: 0.5),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: AppColor.brown, width: 0.5),
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: AppColor.green, width: 0.5),
+                          ),
+                        ),
+                        onChanged: (value) => isDisabled.value =
+                            _textEditingController.text.isEmptyOrNull,
+                      ).expand(),
+                      IconButton(
                         onPressed: isDisabled.value
                             ? null
                             : () {
@@ -162,11 +162,53 @@ class QuestionDetail extends StatelessWidget {
                               isDisabled.value ? Colors.grey : AppColor.brown,
                         ),
                       ),
-                    ),
-                  ],
-                ).p(4),
-              ),
+                    ],
+                  ).p(4),
+                ),
+              ],
             ),
+          ),
+        ),
+      );
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 4.0,
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: AppColor.green),
+        title:
+            questionTitle.text.semiBold.ellipsis.color(AppColor.green).make(),
+      ),
+      body: KeyboardDismissOnTap(
+        child: Stack(
+          children: [
+            StreamBuilder<Question>(
+              stream: _qaController.streamQuestion(questionID),
+              builder: (context, AsyncSnapshot<Question> snapshot) {
+                if (!snapshot.hasData) {
+                  return Gaps.empty;
+                }
+                Question question = snapshot.data!;
+                return SingleChildScrollView(
+                  controller: _scrollController,
+                  child: Column(
+                    children: <Widget>[
+                      QuestionCard.buildInstance(question),
+                      Divider(
+                        height: 12,
+                        thickness: 10,
+                      ),
+                      _buildAnswers(),
+                      Obx(
+                        () => SizedBox(height: textFieldHeight.value),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+            _buildAnswerField(),
           ],
         ),
       ),

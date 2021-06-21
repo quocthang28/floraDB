@@ -19,4 +19,6 @@ class SiteNavigation {
   //question and answer
   static const ADDQUESTION = '/addquestion';
   static const QUESTIONDETAIL = '/questiondetail';
+  //my plant
+  static const MYPLANT = '/myplant';
 }
